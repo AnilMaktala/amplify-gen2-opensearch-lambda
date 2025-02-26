@@ -1,0 +1,15 @@
+{
+  "name": "dynamodb-stream-to-opensearch",
+  "version": "1.0.0",
+  "description": "Lambda function to sync DynamoDB data to OpenSearch using DynamoDB Streams",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@aws-sdk/credential-provider-node": "^3.410.0",
+    "@opensearch-project/opensearch": "^2.2.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
