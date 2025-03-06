@@ -7,15 +7,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnilMaktala/amplify-gen2-opensearch-lambda.git"
+    "url": "git+https://github.com/username/amplify-gen2-opensearch-lambda.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AnilMaktala/amplify-gen2-opensearch-lambda/issues"
+    "url": "https://github.com/username/amplify-gen2-opensearch-lambda/issues"
   },
-  "homepage": "https://github.com/AnilMaktala/amplify-gen2-opensearch-lambda#readme",
+  "homepage": "https://github.com/username/amplify-gen2-opensearch-lambda#readme",
   "description": "",
   "devDependencies": {
     "@aws-amplify/backend": "^1.14.1",

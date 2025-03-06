@@ -3,18 +3,26 @@ const { defaultProvider } = require("@aws-sdk/credential-provider-node");
 const { AwsSigv4Signer } = require("@opensearch-project/opensearch/aws");
 
 // Environment variables
+const OPENSEARCH_COLLECTION_ENDPOINT = process.env.OPENSEARCH_COLLECTION_ENDPOINT;
 const OPENSEARCH_DOMAIN_ENDPOINT = process.env.OPENSEARCH_DOMAIN_ENDPOINT;
 const OPENSEARCH_INDEX = process.env.OPENSEARCH_INDEX || "dynamodb-data";
 const REGION = process.env.REGION || "us-east-1";
+const USE_SERVERLESS_COLLECTION = process.env.USE_SERVERLESS_COLLECTION === "true";
+
+// Determine the endpoint to use based on environment
+const endpoint = USE_SERVERLESS_COLLECTION 
+  ? OPENSEARCH_COLLECTION_ENDPOINT 
+  : `https://${OPENSEARCH_DOMAIN_ENDPOINT}`;
 
 // Create OpenSearch client with AWS Signature v4 authentication
 const client = new Client({
   ...AwsSigv4Signer({
     region: REGION,
-    service: "es",
+    // Use 'aoss' service name for serverless collections, 'es' for domains
+    service: USE_SERVERLESS_COLLECTION ? "aoss" : "es",
     getCredentials: () => defaultProvider()(),
   }),
-  node: `https://${OPENSEARCH_DOMAIN_ENDPOINT}`,
+  node: endpoint,
 });
 
 /**
@@ -34,7 +42,7 @@ async function ensureIndexExists() {
             properties: {
               id: { type: "keyword" },
               timestamp: { type: "date" },
-              content: { type: "text" },
+              // content: { type: "text" },
               // Add other fields as needed based on your DynamoDB schema
             },
           },
